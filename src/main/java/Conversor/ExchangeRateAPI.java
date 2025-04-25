@@ -1,4 +1,8 @@
 package Conversor;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -10,7 +14,7 @@ public class ExchangeRateAPI {
 
     public static double getExchangeRate(String baseCurrency, String targetCurrency) throws Exception {
         String urlStr = "https://v6.exchangerate-api.com/v6/" + API_KEY + "/latest/" + baseCurrency;
-URL url = URI.create(urlStr).toURL();
+        URL url = URI.create(urlStr).toURL();
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
 
@@ -32,19 +36,14 @@ URL url = URI.create(urlStr).toURL();
     }
 
     private static double parseExchangeRate(String json, String targetCurrency) throws Exception {
-        String searchKey = "\"" + targetCurrency.toUpperCase() + "\":";
-        int startIndex = json.indexOf(searchKey);
-        if (startIndex == -1) {
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+
+        JsonObject conversionRates = jsonObject.getAsJsonObject("conversion_rates");
+        if (conversionRates == null || !conversionRates.has(targetCurrency.toUpperCase())) {
             throw new RuntimeException("Moeda não encontrada: " + targetCurrency);
         }
 
-        startIndex += searchKey.length();
-        int endIndex = json.indexOf(",", startIndex);
-        if (endIndex == -1) {
-            endIndex = json.indexOf("}", startIndex);  // último item
-        }
-
-        String rateStr = json.substring(startIndex, endIndex).trim();
-        return Double.parseDouble(rateStr);
+        return conversionRates.get(targetCurrency.toUpperCase()).getAsDouble();
     }
 }

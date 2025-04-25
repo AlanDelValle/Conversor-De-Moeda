@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "CurrencyConverterApp",
+        "request": "launch",
+        "mainClass": "CurrencyConverterApp",
+        "projectName": "currency-converter"
+      },
+      {
+        "type": "java",
+        "name": "Run CurrencyConverterApp",
+        "request": "launch",
+        "mainClass": "Conversor.CurrencyConverterApp",
+        "projectName": "currency-converter",
+        "preLaunchTask": "mvn: package"
+      }
+    ]
+  }

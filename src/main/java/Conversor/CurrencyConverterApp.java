@@ -10,12 +10,12 @@ public class CurrencyConverterApp {
         while (running) {
             System.out.println("=== CONVERSOR DE MOEDAS ===");
             System.out.println("Escolha uma opção:");
-            System.out.println("1. USD para EUR");
-            System.out.println("2. EUR para USD");
-            System.out.println("3. BRL para USD");
-            System.out.println("4. USD para BRL");
-            System.out.println("5. BRL para EUR");
-            System.out.println("6. EUR para BRL");
+            System.out.println("1. USD para BRL");
+            System.out.println("2. ARS para BOB");
+            System.out.println("3. CLP para COP");
+            System.out.println("4. BRL para ARS");
+            System.out.println("5. BOB para CLP");
+            System.out.println("6. COP para USD");
             System.out.println("0. Sair");
             System.out.print("Opção: ");             
             int opcao = scanner.nextInt();
@@ -35,17 +35,17 @@ public class CurrencyConverterApp {
 
                 switch (opcao) {
                     case 1:
-                        from = "USD"; to = "EUR"; break;
-                    case 2:
-                        from = "EUR"; to = "USD"; break;
-                    case 3:
-                        from = "BRL"; to = "USD"; break;
-                    case 4:
                         from = "USD"; to = "BRL"; break;
+                    case 2:
+                        from = "ARS"; to = "BOB"; break;
+                    case 3:
+                        from = "CLP"; to = "COP"; break;
+                    case 4:
+                        from = "BRL"; to = "ARS"; break;
                     case 5:
-                        from = "BRL"; to = "EUR"; break;
+                        from = "BOB"; to = "CLP"; break;
                     case 6:
-                        from = "EUR"; to = "BRL"; break;
+                        from = "COP"; to = "USD"; break;
                     default:
                         System.out.println("Opção inválida!");
                         continue;
